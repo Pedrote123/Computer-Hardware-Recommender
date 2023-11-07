@@ -10,27 +10,51 @@
 <body>
     <div>
         <form action="">
-            <span>
-                <input type="checkbox" class="ckbox">
-                <p>CPU</p>
-            </span>
-            <span>
-                <input type="checkbox" class="ckbox">
-                <p>GPU</p>
-            </span>
-            <span>
-                <input type="checkbox" class="ckbox">
-                <p>Ram</p>
-            </span>
-            <span>
-                <input type="checkbox" class="ckbox">
-                <p>Storage</p>
-            </span>
-            <span>
-                <input type="checkbox" class="ckbox">
-                <p>Power supply</p>
-            </span>
+            <div>
+                <p><input type="checkbox" id="ckbox" onchange="toggleSelect()">CPU</p>
+                <select name="" class="selector" hidden>
+                    <option value="">AMD</option>
+                    <option value="">Intel</option>
+                </select>
+            </div>
+            <div>
+                <p><input type="checkbox" class="ckbox">GPU</p>
+                <select name="" class="selector" hidden>
+                    <option value="">AMD</option>
+                    <option value="">Nvidia</option>
+                </select>
+            </div>
+            <div>
+                <p><input type="checkbox" class="ckbox">Ram</p>
+                <select name="" class="selector" hidden>
+                    <option value="">4gb</option>
+                    <option value="">8gb</option>
+                    <option value="">16gb</option>
+                </select>
+            </div>
+            <div>
+                <p><input type="checkbox" class="ckbox">Storage</p>
+            </div>
+            <div>
+                <p><input type="checkbox" class="ckbox">Power supply</p>
+            </div>
+            <input type="number" placeholder="Introduce your budget">
         </form>
     </div>
+    <script>
+        // Still working on it
+        function toggleSelect(){
+            var ckboxes = document.querySelectorAll('.ckbox')
+            var hddens = document.querySelectorAll('selector')
+            for (let i = 0; i < ckboxes.length; i++){
+                if (ckboxes[i].checked == true){
+                    document.querySelector('selector').hidden = false;
+                }else{
+                    hddens.hidden = true;
+            }
+            }
+        }
+
+    </script>
 </body>
 </html>

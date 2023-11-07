@@ -1,22 +1,22 @@
 document.addEventListener('DOMContentLoaded', ()=> {
     const checkboxes = document.querySelectorAll('.ckbox')
 
-    checkboxes.forEach((checkbox)=> {
-        // checkbox.addEventListener('change', ()=>{
-        checkbox.addEventListener('change', ()=> {
-            var anyCheck = Array.from(checkboxes).some(checkbox => checkbox.checked);
-            saveChks(checkboxes);
-            if (anyCheck){
-                document.querySelector('body').style.backgroundColor = 'red';
+    // checkboxes.forEach((checkbox)=> {
+    //     // checkbox.addEventListener('change', ()=>{
+    //     checkbox.addEventListener('change', ()=> {
+    //         var anyCheck = Array.from(checkboxes).some(checkbox => checkbox.checked);
+    //         saveChks(checkboxes);
+    //         if (anyCheck){
+    //             document.querySelector('body').style.backgroundColor = 'red';
 
-            } else{
-                document.querySelector('body').style.backgroundColor = 'white'
-            }
-        })
+    //         } else{
+    //             document.querySelector('body').style.backgroundColor = 'white'
+    //         }
+    //     })
 
-        // })
+    //     // })
 
-    })
+    // })
     // loadChks()
     // function saveChks(item){
     //     let checkboxes = localStorage.setItem('chkboxes', JSON.stringify(item))
@@ -57,17 +57,32 @@ document.addEventListener('DOMContentLoaded', ()=> {
     //     )
 
     const mouse = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/mouse.json';
+    const cpu = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/cpu.json';
     fetch(mouse)
     .then(response => {
         return response.json();
     })
-    .then(data =>{
-        for(let i in data) {
-            if (Array.isArray(data[i])){
-                data[i] = data[i].filter(item => item.price !== null);
-            }
-        }
-        console.log(data)
-    }
-    )
+    .then(data => {
+        console.log('Data fetched:', data); // Check if data is fetched correctly
+
+        // for (let i in data) {
+        //     if (Array.isArray(data[i])) {
+        //         data[i] = data[i].filter(item => item.price !== 'null');
+        //     }
+        // }
+        var filteredData = data.filter(filt => filt.price !== null)
+        console.log('Filtered data:', filteredData); // Check if data is filtered correctly
+    })
+    .catch(error => {
+        console.error('Error fetching or processing data:', error);
+    });
+
+    fetch(cpu)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        var filteredData = data.filter(cpu => cpu.price !== null)
+        console.log(filteredData)
+    })
 })
