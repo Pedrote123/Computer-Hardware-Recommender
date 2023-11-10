@@ -58,31 +58,55 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const mouse = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/mouse.json';
     const cpu = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/cpu.json';
-    fetch(mouse)
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        console.log('Data fetched:', data); // Check if data is fetched correctly
+    const ram = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/memory.json';
+    // fetch(mouse)
+    // .then(response => {
+    //     return response.json();
+    // })
+    // .then(data => {
+    //     console.log('Data fetched:', data); // Check if data is fetched correctly
 
-        // for (let i in data) {
-        //     if (Array.isArray(data[i])) {
-        //         data[i] = data[i].filter(item => item.price !== 'null');
-        //     }
-        // }
-        var filteredData = data.filter(filt => filt.price !== null)
-        console.log('Filtered data:', filteredData); // Check if data is filtered correctly
-    })
-    .catch(error => {
-        console.error('Error fetching or processing data:', error);
-    });
+    //     // for (let i in data) {
+    //     //     if (Array.isArray(data[i])) {
+    //     //         data[i] = data[i].filter(item => item.price !== 'null');
+    //     //     }
+    //     // }
+    //     var filteredData = data.filter(filt => filt.price !== null)
+    //     console.log('Filtered data:', filteredData); // Check if data is filtered correctly
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching or processing data:', error);
+    // });
 
     fetch(cpu)
     .then(response => {
         return response.json();
     })
     .then(data => {
-        var filteredData = data.filter(cpu => cpu.price !== null)
-        console.log(filteredData)
+        return data.filter(cpu => cpu.name.includes('Intel' && 'i7'))
     })
+    .then(filteredData => {
+        return filteredData.filter(cpu => cpu.price !== null && cpu.price < 100)
+    })
+    .then(endData => {
+        console.log('CPUs compatibles', endData)
+    })
+    .catch(e => {
+        console.log('Error:', e)
+    })
+    // document.querySelectorAll('.selector').forEach( e => {
+    document.addEventListener('submit', (event) =>{
+        event.preventDefault()
+        const optionFour_ram = document.getElementById('4gb').innerHTML;
+        fetch(ram)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            var filteredData = data.filter(ram => ram.name.includes(' ' + optionFour_ram))
+            console.log(filteredData)
+        })
+    })
+    // })
+
 })

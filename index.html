@@ -11,25 +11,27 @@
     <div>
         <form action="">
             <div>
-                <p><input type="checkbox" id="ckbox" onchange="toggleSelect()">CPU</p>
-                <select name="" class="selector" hidden>
+                <p><input type="checkbox" class="ckbox">CPU</p>
+                <select name="" class="selector" >
                     <option value="">AMD</option>
                     <option value="">Intel</option>
                 </select>
             </div>
             <div>
                 <p><input type="checkbox" class="ckbox">GPU</p>
-                <select name="" class="selector" hidden>
+                <select name="" class="selector" >
                     <option value="">AMD</option>
                     <option value="">Nvidia</option>
                 </select>
             </div>
             <div>
                 <p><input type="checkbox" class="ckbox">Ram</p>
-                <select name="" class="selector" hidden>
-                    <option value="">4gb</option>
-                    <option value="">8gb</option>
-                    <option value="">16gb</option>
+                <select name="" class="selector three">
+                    <option value="" id="4gb">4 GB</option>
+                    <option value="">8 GB</option>
+                    <option value="">16 GB</option>
+                    <option value="">32 GB</option>
+                    <option value="">64 GB</option>
                 </select>
             </div>
             <div>
@@ -39,22 +41,10 @@
                 <p><input type="checkbox" class="ckbox">Power supply</p>
             </div>
             <input type="number" placeholder="Introduce your budget">
+            <input type="submit" value="Aplicar">
         </form>
     </div>
     <script>
-        // Still working on it
-        function toggleSelect(){
-            var ckboxes = document.querySelectorAll('.ckbox')
-            var hddens = document.querySelectorAll('selector')
-            for (let i = 0; i < ckboxes.length; i++){
-                if (ckboxes[i].checked == true){
-                    document.querySelector('selector').hidden = false;
-                }else{
-                    hddens.hidden = true;
-            }
-            }
-        }
-
     </script>
 </body>
 </html>
