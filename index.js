@@ -56,57 +56,79 @@ document.addEventListener('DOMContentLoaded', ()=> {
     //         console.log(caseFan)
     //     )
 
-    const mouse = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/mouse.json';
-    const cpu = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/cpu.json';
-    const ram = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/memory.json';
-    // fetch(mouse)
+    // var gpu = 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/video-card.json';
+
+    // fetch(gpu)
     // .then(response => {
-    //     return response.json();
+    //     return response.json()
     // })
     // .then(data => {
-    //     console.log('Data fetched:', data); // Check if data is fetched correctly
-
-    //     // for (let i in data) {
-    //     //     if (Array.isArray(data[i])) {
-    //     //         data[i] = data[i].filter(item => item.price !== 'null');
-    //     //     }
-    //     // }
-    //     var filteredData = data.filter(filt => filt.price !== null)
-    //     console.log('Filtered data:', filteredData); // Check if data is filtered correctly
+    //     var filteredData = data.filter(gpu => gpu.chipset.includes('Radeon'))
+    //     console.log(filteredData)
     // })
-    // .catch(error => {
-    //     console.error('Error fetching or processing data:', error);
-    // });
 
-    fetch(cpu)
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        return data.filter(cpu => cpu.name.includes('Intel' && 'i7'))
-    })
-    .then(filteredData => {
-        return filteredData.filter(cpu => cpu.price !== null && cpu.price < 100)
-    })
-    .then(endData => {
-        console.log('CPUs compatibles', endData)
-    })
-    .catch(e => {
-        console.log('Error:', e)
-    })
-    // document.querySelectorAll('.selector').forEach( e => {
+
+    const parts = {
+        cpu: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/cpu.json',
+        gpu: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/video-card.json',
+        ram: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/memory.json',
+        mouse: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/mouse.json'
+
+    }
+
+
+
     document.addEventListener('submit', (event) =>{
         event.preventDefault()
-        const optionFour_ram = document.getElementById('4gb').innerHTML;
-        fetch(ram)
-        .then(response => {
-            return response.json()
+        var chkbox = document.querySelector('.ckbox.ram')
+        var selectores = document.querySelectorAll('.selector');
+        var checkboxessss = document.querySelectorAll('.ckbox')
+        checkboxessss.forEach((checkbox, i) => {
+            if (checkbox.checked){
+                var Options = selectores[i];
+                var optionSelected = Options.options[Options.selectedIndex].value;
+                if (checkbox.value == 'gpu'){
+                    fetch(parts[checkbox.value])
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        var filteredData = data.filter( op => op.chipset.includes(optionSelected))
+                        console.log(filteredData)
+                    })
+                } else {
+                    fetch(parts[checkbox.value])
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        var filteredData = data.filter( op => op.name.includes(optionSelected))
+                        console.log(filteredData)
+                    })
+                }
+
+
+
+            }   
+
         })
-        .then(data => {
-            var filteredData = data.filter(ram => ram.name.includes(' ' + optionFour_ram))
-            console.log(filteredData)
-        })
+    
+        // if (chkbox.checked == true){
+        //     fetch(parts.ram)
+        //     .then(response => {
+        //         return response.json()
+        //     })
+        //     .then(data => {
+        //         var filteredData = data.filter(ram => ram.name.includes(' ' + optionsSelectedRam))
+        //         console.log(filteredData)
+        //     })
+        // }
+        // const optionsRam = document.querySelector('.selector.three');
+        // const optionsSelectedRam = optionsRam.options[optionsRam.selectedIndex].text;
+        // const optionFour_ram = document.getElementById('4gb').innerHTML;
+
     })
     // })
 
+      
 })
