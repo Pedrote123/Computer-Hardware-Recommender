@@ -3,12 +3,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
         cpu: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/cpu.json',
         gpu: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/video-card.json',
         ram: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/memory.json',
-        mouse: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/mouse.json'
-
+        storage: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/internal-hard-drive.json'
     }
-
-
-
     document.addEventListener('submit', (event) =>{
         event.preventDefault()
         var chkbox = document.querySelector('.ckbox.ram')
@@ -24,16 +20,27 @@ document.addEventListener('DOMContentLoaded', ()=> {
                         return response.json()
                     })
                     .then(data => {
-                        var filteredData = data.filter( op => op.chipset.includes(optionSelected))
+                        var filteredData = data.filter( op => op.chipset.includes(optionSelected) && op.price !== null)
                         console.log(filteredData)
                     })
-                } else {
+                } else if (checkbox.value == 'storage') {
                     fetch(parts[checkbox.value])
                     .then(response => {
                         return response.json()
                     })
                     .then(data => {
-                        var filteredData = data.filter( op => op.name.includes(optionSelected))
+                        var storageCapacity = document.querySelector('.StorageCapacityInput').value
+                        var filteredData = data.filter(storage => storage.type == optionSelected && storage.capacity <= storageCapacity && storage.price !== null)
+                        console.log(filteredData)
+                    })
+                }  
+                else {
+                    fetch(parts[checkbox.value])
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        var filteredData = data.filter( op => op.name.includes(optionSelected) && op.price !== null)
                         console.log(filteredData)
                     })
                 }
