@@ -8,47 +8,61 @@
     <script src="index.js"></script>
 </head>
 <body>
-    <div>
-        <form action="">
-            <div>
-                <p><input type="checkbox" class="ckbox" value="cpu">CPU</p>
-                <select name="" class="selector" >
-                    <option value="AMD">AMD</option>
-                    <option value="Intel">Intel</option>
-                </select>
-            </div>
-            <div>
-                <p><input type="checkbox" class="ckbox" value="gpu">GPU</p>
-                <select name="" class="selector" >
-                    <option value="Radeon">AMD</option>
-                    <option value="GeForce">Nvidia</option>
-                </select>
-            </div>
-            <div>
-                <p><input type="checkbox" class="ckbox ram" value="ram">Ram</p>
-                <select name="" class="selector">
-                    <option value=" 4 GB" id="4gb">4 GB</option>
-                    <option value=" 8 GB">8 GB</option>
-                    <option value=" 16 GB">16 GB</option>
-                    <option value=" 32 GB">32 GB</option>
-                    <option value=" 64 GB">64 GB</option>
-                </select>
-            </div>
-            <div>
-                <p><input type="checkbox" class="ckbox" value="storage">Storage</p>
-                <select name="" class="selector" >
-                    <option value="SSD">SSD</option>
-                    <option value="7200">HDD</option>
-                </select>
-                <input type="number" placeholder="Capacity" class="StorageCapacityInput">
-            </div>
-            <div>
-                <p><input type="checkbox" class="ckbox" value="powerSupply">Power supply</p>
-            </div>
-            <input type="number" placeholder="Introduce your budget">
-            <input type="submit" value="Aplicar">
-        </form>
-    </div>
+    <form action="">
+        <div>
+            <p><input type="checkbox" class="ckbox" value="cpu">CPU</p>
+            <select name="" class="selector" >
+                <option value="AMD">AMD</option>
+                <option value="Intel">Intel</option>
+            </select>
+        </div>
+        <div>
+            <p><input type="checkbox" class="ckbox" value="gpu">GPU</p>
+            <select name="" class="selector" >
+                <option value="Radeon">AMD</option>
+                <option value="GeForce">Nvidia</option>
+            </select>
+        </div>
+        <div>
+            <p><input type="checkbox" class="ckbox ram" value="ram">Ram</p>
+            <select name="" class="selector">
+                <option value=" 4 GB" id="4gb">4 GB</option>
+                <option value=" 8 GB">8 GB</option>
+                <option value=" 16 GB">16 GB</option>
+                <option value=" 32 GB">32 GB</option>
+                <option value=" 64 GB">64 GB</option>
+            </select>
+        </div>
+        <div>
+            <p><input type="checkbox" class="ckbox" value="storage">Storage</p>
+            <select name="" class="selector" >
+                <option value="SSD">SSD</option>
+                <option value="7200">HDD</option>
+            </select>
+            <input type="number" placeholder="Capacity" class="StorageCapacityInput">
+        </div>
+        <div>
+            <p><input type="checkbox" class="ckbox" value="powerSupply">Power supply</p>
+            <select name="" class="selector" >
+                <option value="350">300-350</option>
+                <option value="450">400-450</option>
+                <option value="550">500-550</option>
+                <option value="650">600-650</option>
+                <option value="750">700-750</option>
+                <option value="850">800-850</option>
+            </select>
+            <select name="" class="selector efficiency" >
+                <option value="plus">80 plus</option>
+                <option value="bronze">Bronze</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+                <option value="platinum">Platinum</option>
+                <option value="titanium">Titanium</option>
+            </select>
+        </div>
+        <input type="number" placeholder="Introduce your budget">
+        <input type="submit" value="Aplicar">
+    </form>
     <script>
     </script>
 </body>
