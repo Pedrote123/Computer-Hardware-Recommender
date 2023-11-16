@@ -93,14 +93,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
                         category.innerHTML = item
                         firstRow.appendChild(category)
                     })
-                    return data
-                })
-                .then(rowData => {
                     product = ndiv.querySelectorAll('ul')
                     product = Array.from(product).slice(1)
-                    dataKeys = Object.keys(rowData[0])
+                    dataKeys = Object.keys(data[0])
                     var dataValues = []
-                    rowData.forEach(obj => {
+                    data.forEach(obj => {
                         var dataValuesObjects = Object.values(obj)
                         dataValues.push(dataValuesObjects)
                     })
