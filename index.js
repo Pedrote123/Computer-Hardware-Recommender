@@ -67,17 +67,21 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     }
                 })
                 .then(datas => {
-                    ndiv = document.querySelector('.dataDiv')
-                    if (ndiv.querySelector('ul')){
-                        return datas
-                    }
-                    else {
-                        datas.forEach((model, j) => {
-                            var product = document.createElement('ul')
-                            ndiv.appendChild(product)
-                        })
-                        return datas
-                    }
+                    ndiv = document.querySelectorAll('.dataDiv')
+                    console.log(ndiv[1])
+                    ndiv.forEach((l) => {
+                        if (l.querySelector('ul')){
+                            return datas
+                        }
+                        else {
+                            datas.forEach((j) => {
+                                var product = document.createElement('ul')
+                                l.appendChild(product)
+                            })
+                            return datas
+                        }
+                    })
+                    return datas
 
                     // var myObject = { key1: 'value1', key2: 'value2', key3: 'value3' };
                     // var miObjeto = Object.keys(myObject)
@@ -85,35 +89,75 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     // console.log(miObjeto);
                 })
                 .then(data => {
-                    var firstRow = ndiv.querySelectorAll('ul')[0]
-                    var dataKeys = Object.keys(data[0])
-                    var categoryQuantity = dataKeys.length
-                    dataKeys.forEach((item, k) => {
-                        var category = document.createElement('li')
-                        category.innerHTML = item
-                        firstRow.appendChild(category)
-                    })
-                    product = ndiv.querySelectorAll('ul')
-                    product = Array.from(product).slice(1)
-                    dataKeys = Object.keys(data[0])
-                    var dataValues = []
-                    data.forEach(obj => {
-                        var dataValuesObjects = Object.values(obj)
-                        dataValues.push(dataValuesObjects)
-                    })
-                    categoryQuantity = dataKeys.length
-
-                    product.forEach((item, k) => {
-                        for (let n = 0; n < categoryQuantity; n++){
-                            var characteristics = document.createElement('li')
-                            characteristics.innerHTML = String(dataValues[k][n])
-                            item.appendChild(characteristics)
+                    ndiv = document.querySelectorAll('.dataDiv')
+                    ndiv.forEach((l) => {
+                        var firstRow = l.querySelectorAll('ul')[0]
+                        var dataKeys = Object.keys(data[0])
+                        var categoryQuantity = dataKeys.length
+                        if (firstRow.hasChildNodes()){
+                            if (l.getAttribute('value') !== checkbox.value){
+                                dataKeys.forEach((word)=>{
+                                    word = word.charAt(0).toUpperCase() + word.substring(1)
+                                    word = word.replaceAll('_', ' ')
+                                    console.log(word)
+                                    var category = document.createElement('li')
+                                    category.innerHTML = word
+                                    firstRow.appendChild(category)
+                                })
+                                product = l.querySelectorAll('ul')
+                                product = Array.from(product).slice(1)
+                                dataKeys = Object.keys(data[0])
+                                var dataValues = []
+                                data.forEach(obj => {
+                                    var dataValuesObjects = Object.values(obj)
+                                    dataValues.push(dataValuesObjects)
+                                })
+                                categoryQuantity = dataKeys.length
+            
+                                product.forEach((item, k) => {
+                                    for (let n = 0; n < categoryQuantity; n++){
+                                        var characteristics = document.createElement('li')
+                                        characteristics.innerHTML = String(dataValues[k][n])
+                                        item.appendChild(characteristics)
+                                    }
+                                })
+                                return data
+                            }
+                            else {
+                                return data
+                            }
+                        } else {
+                            dataKeys.forEach((word)=>{
+                                word = word.charAt(0).toUpperCase() + word.substring(1)
+                                word = word.replaceAll('_', ' ')
+                                console.log(word)
+                                var category = document.createElement('li')
+                                category.innerHTML = word
+                                firstRow.appendChild(category)
+                            })
+                            product = l.querySelectorAll('ul')
+                            product = Array.from(product).slice(1)
+                            dataKeys = Object.keys(data[0])
+                            var dataValues = []
+                            data.forEach(obj => {
+                                var dataValuesObjects = Object.values(obj)
+                                dataValues.push(dataValuesObjects)
+                            })
+                            categoryQuantity = dataKeys.length
+        
+                            product.forEach((item, k) => {
+                                for (let n = 0; n < categoryQuantity; n++){
+                                    var characteristics = document.createElement('li')
+                                    characteristics.innerHTML = String(dataValues[k][n])
+                                    item.appendChild(characteristics)
+                                }
+                            })
+                            return data
                         }
-
-
                     })
+
                 })
-                    //Todavía no funciona para todas. Si ya existe una tabla no crea la segunda
+                    //Por algún motivo que mi cerebro desconoce, se crean y se añaden a la misma
             }  
         }) 
     })   
