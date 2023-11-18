@@ -1,0 +1,46 @@
+.tDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70rem;
+    border: 1px solid black;
+    margin-top: 2rem;
+    /* border-radius: 1rem;
+    overflow: hidden; */
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid black;
+}
+
+.row>li {
+    flex: 1;
+    min-width: 7rem;
+    list-style-type: none;
+    text-align: center;
+    border-right: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.row>li:last-child {
+    border-right: none;
+}
+
+.firstRow{
+    background-color: aquamarine;
+}
+.firstRow>li{
+    padding: 0.5rem 0;
+}

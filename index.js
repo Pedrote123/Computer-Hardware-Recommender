@@ -34,8 +34,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     else if (checkbox.value == 'powerSupply'){
                         var option2 = document.querySelector('.selector.efficiency')
                         var optionSelected2 = option2.options[option2.selectedIndex].value
-                        console.log(optionSelected2)
-                        var filteredData = data.filter(power => power.wattage <= optionSelected && power.wattage >= optionSelected - 50 && power.efficiency == optionSelected2)
+                        var filteredData = data.filter(power => power.wattage <= optionSelected && power.wattage >= optionSelected - 50 && power.efficiency == optionSelected2 && power.price !== null)
                         return filteredData
                     }
                     else{
@@ -44,120 +43,69 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     }
                 })
                 .then(displayed => {
-                    if (document.querySelector('.dataDiv')){
-                        if (checkbox.value !== document.querySelector('.dataDiv').getAttribute('value')){
-                            var ndiv = document.createElement('div')
-                            document.body.appendChild(ndiv)
-                            ndiv.setAttribute('value', checkbox.value)
-                            ndiv.classList.add('dataDiv')
-                            ndiv.innerHTML = 'Hola'
-                            return displayed
+                    var tableDiv = document.querySelectorAll('.tDiv')
+                    var found = false
+                    if (tableDiv.length > 0){
+                        tableDiv.forEach((tabl)=>{
+                            if (tabl.getAttribute('value') == checkbox.value){
+                                found = true
+                                return displayed
+                            }
+                        })
+                        if (!found){
+                            CreateTable(checkbox.value, CreateUlandLi)
                         }
-                        else{ 
-                            return displayed
+                    }
+                    else{
+                        CreateTable(checkbox.value, CreateUlandLi);
+                    }
+                    function CreateTable(checkboxValue, ulcreator){
+                        var table = document.createElement('div')
+                        table.classList.add('tDiv')
+                        table.setAttribute('value', checkboxValue)
+                        document.body.appendChild(table)
+                        ulcreator(table)
+                    }
+                    function CreateUlandLi(table){
+                        var dataValues = []
+                        var dataKeys = Object.keys(displayed[0])
+                        displayed.forEach((obj) => {
+                            var dataValuesObjects = Object.values(obj)
+                            dataValues.push(dataValuesObjects)
+                        })
+                        for (let n = 0; n < displayed.length; n++){
+                            var tUl = document.createElement('ul')
+                            tUl.classList.add('row')
+                            table.appendChild(tUl)
                         }
+                        var uls = table.querySelectorAll('ul')
+                        dataKeys = dataKeys.map((word) => {
+                            return word.charAt(0).toUpperCase() + word.substring(1).replaceAll('_', ' ');
+                        });
+                        uls.forEach((ul, l) => {
+                            if (l > 0) {
+                                for (let m = 0; m < dataKeys.length; m++) {
+                                    var tLi = document.createElement('li');
+                                    ul.appendChild(tLi);
+                                    tLi.innerHTML = String(dataValues[l][m]);
+                                }
+                            } else {
+                                for (let m = 0; m < dataKeys.length; m++) {
+                                    var tLi = document.createElement('li');
+                                    ul.appendChild(tLi);
+                                    ul.classList.add('firstRow')
+                                    tLi.innerHTML = String(dataKeys[m]);
+                                }
+                            }
+                        });
 
-                    } else {
-                        var ndiv = document.createElement('div')
-                        document.body.appendChild(ndiv)
-                        ndiv.setAttribute('value', checkbox.value)
-                        ndiv.classList.add('dataDiv')
-                        ndiv.innerHTML = 'Hola'
-                        return displayed
+
                     }
                 })
-                .then(datas => {
-                    ndiv = document.querySelectorAll('.dataDiv')
-                    console.log(ndiv[1])
-                    ndiv.forEach((l) => {
-                        if (l.querySelector('ul')){
-                            return datas
-                        }
-                        else {
-                            datas.forEach((j) => {
-                                var product = document.createElement('ul')
-                                l.appendChild(product)
-                            })
-                            return datas
-                        }
-                    })
-                    return datas
-
-                    // var myObject = { key1: 'value1', key2: 'value2', key3: 'value3' };
-                    // var miObjeto = Object.keys(myObject)
-                    // var values = [];
-                    // console.log(miObjeto);
+                .catch(error => {
+                    console.log('Error: ', error)
                 })
-                .then(data => {
-                    ndiv = document.querySelectorAll('.dataDiv')
-                    ndiv.forEach((l) => {
-                        var firstRow = l.querySelectorAll('ul')[0]
-                        var dataKeys = Object.keys(data[0])
-                        var categoryQuantity = dataKeys.length
-                        if (firstRow.hasChildNodes()){
-                            if (l.getAttribute('value') !== checkbox.value){
-                                dataKeys.forEach((word)=>{
-                                    word = word.charAt(0).toUpperCase() + word.substring(1)
-                                    word = word.replaceAll('_', ' ')
-                                    console.log(word)
-                                    var category = document.createElement('li')
-                                    category.innerHTML = word
-                                    firstRow.appendChild(category)
-                                })
-                                product = l.querySelectorAll('ul')
-                                product = Array.from(product).slice(1)
-                                dataKeys = Object.keys(data[0])
-                                var dataValues = []
-                                data.forEach(obj => {
-                                    var dataValuesObjects = Object.values(obj)
-                                    dataValues.push(dataValuesObjects)
-                                })
-                                categoryQuantity = dataKeys.length
-            
-                                product.forEach((item, k) => {
-                                    for (let n = 0; n < categoryQuantity; n++){
-                                        var characteristics = document.createElement('li')
-                                        characteristics.innerHTML = String(dataValues[k][n])
-                                        item.appendChild(characteristics)
-                                    }
-                                })
-                                return data
-                            }
-                            else {
-                                return data
-                            }
-                        } else {
-                            dataKeys.forEach((word)=>{
-                                word = word.charAt(0).toUpperCase() + word.substring(1)
-                                word = word.replaceAll('_', ' ')
-                                console.log(word)
-                                var category = document.createElement('li')
-                                category.innerHTML = word
-                                firstRow.appendChild(category)
-                            })
-                            product = l.querySelectorAll('ul')
-                            product = Array.from(product).slice(1)
-                            dataKeys = Object.keys(data[0])
-                            var dataValues = []
-                            data.forEach(obj => {
-                                var dataValuesObjects = Object.values(obj)
-                                dataValues.push(dataValuesObjects)
-                            })
-                            categoryQuantity = dataKeys.length
-        
-                            product.forEach((item, k) => {
-                                for (let n = 0; n < categoryQuantity; n++){
-                                    var characteristics = document.createElement('li')
-                                    characteristics.innerHTML = String(dataValues[k][n])
-                                    item.appendChild(characteristics)
-                                }
-                            })
-                            return data
-                        }
-                    })
-
-                })
-                    //Por algún motivo que mi cerebro desconoce, se crean y se añaden a la misma
+                //Añadir clase para que la tabla sea desplegable
             }  
         }) 
     })   
