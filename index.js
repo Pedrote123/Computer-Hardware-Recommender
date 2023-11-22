@@ -16,7 +16,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
             if (checkbox.checked){
                 var Options = selectores[i];
                 var optionSelected = Options.options[Options.selectedIndex].value;
-
+                var DivOption = document.createElement('div')
+                DivOption.classList.add('DivOption')
+                DivOption.style.userSelect = 'none';
+                document.body.appendChild(DivOption)
                 fetch(parts[checkbox.value])
                 .then(response => {
                     return response.json()
@@ -62,8 +65,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
                     function CreateTable(checkboxValue, ulcreator){
                         var table = document.createElement('div')
                         table.classList.add('tDiv')
+                        table.style.display = 'none';
                         table.setAttribute('value', checkboxValue)
-                        document.body.appendChild(table)
+
+
+                        var showButon = document.createElement('div')
+                        showButon.innerHTML = String(checkbox.value.toUpperCase())
+                        showButon.classList.add('ShwButton')
+                        DivOption.appendChild(showButon)
+                        DivOption.addEventListener('click', ()=>{
+                            if (table.classList.contains('tDiv')){
+                                table.classList.remove('tDiv')
+                                table.classList.add('tDivClicked')
+                                table.style.display = 'flex';
+                            } else{
+                                table.classList.remove('tDivClicked')
+                                table.classList.add('tDiv')
+                                setTimeout(()=>{
+                                    table.style.display = 'none';
+                                },2000)
+                            }
+
+                        })
+                        DivOption.appendChild(table)
                         ulcreator(table)
                     }
                     function CreateUlandLi(table){
@@ -107,6 +131,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 })
                 //Añadir clase para que la tabla sea desplegable
             }  
-        }) 
+
+
+        })
+
+
+
     })   
 })

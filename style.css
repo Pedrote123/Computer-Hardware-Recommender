@@ -1,33 +1,59 @@
+.DivOption{
+    margin-top: 2rem;
+    width: 100rem;
+}
+
 .tDiv {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70rem;
-    border: 1px solid black;
-    margin-top: 2rem;
+    border: 1px solid rgb(120, 120, 120);
+    background-color: rgb(244, 244, 244);
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.438);
+    animation-name: easing;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
     /* border-radius: 1rem;
     overflow: hidden; */
 }
+@keyframes easing{
+    0% {opacity: 100%;}
+    100%{opacity: 0%;}
+}
 
+.tDivClicked{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(120, 120, 120);
+    background-color: rgb(244, 244, 244);
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.438);
+    animation-name: easingIn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+@keyframes easingIn{
+    0%{opacity: 0%;}
+    100%{opacity: 100%;}
+}
 .row {
     display: flex;
     width: 100%;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(120, 120, 120);
 }
 
 .row>li {
     flex: 1;
-    min-width: 7rem;
+    min-width: 11rem;
     list-style-type: none;
     text-align: center;
-    border-right: 1px solid black;
+    border-right: 1px solid rgb(120, 120, 120);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 0.5rem;
+    padding: 0.5rem 0.5rem;
 }
 
 .row:last-child {
@@ -39,8 +65,21 @@
 }
 
 .firstRow{
-    background-color: aquamarine;
+    background-color: rgb(230, 230, 230);
 }
 .firstRow>li{
     padding: 0.5rem 0;
+}
+
+.ShwButton{
+    padding: 0.3rem 0;
+    text-align: center;
+    width: 10rem;
+    background-color: rgb(244, 244, 244);
+    border: 1px solid rgb(120, 120, 120);
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.438);
+}
+
+.ShwButton:hover{
+    background-color: rgb(210, 210, 210);
 }
