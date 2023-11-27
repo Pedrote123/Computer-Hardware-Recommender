@@ -7,41 +7,59 @@ document.addEventListener('DOMContentLoaded', ()=> {
         powerSupply: 'https://raw.githubusercontent.com/docyx/pc-part-dataset/main/data/json/power-supply.json'
     }
 
+    const existingDivOptions = {};
+
     document.addEventListener('submit', (event) =>{
         event.preventDefault()
-        var chkbox = document.querySelector('.ckbox.ram')
         var selectores = document.querySelectorAll('.selector');
         var checkboxessss = document.querySelectorAll('.ckbox')
+        var Budget = document.getElementById('budget').value
+        if (Budget == null || Budget === ''){
+            Budget = 10000
+        }
+
         checkboxessss.forEach((checkbox, i) => {
             if (checkbox.checked){
                 var Options = selectores[i];
                 var optionSelected = Options.options[Options.selectedIndex].value;
+                var DivOptionValue = checkbox.value;
+
+                if (existingDivOptions[DivOptionValue]) {
+                    return;
+                }
+                existingDivOptions[DivOptionValue] = true;
+
                 var DivOption = document.createElement('div')
                 DivOption.classList.add('DivOption')
-                DivOption.style.userSelect = 'none';
+                DivOption.style.userSelect = 'none'
+                DivOption.setAttribute('value', DivOptionValue)
                 document.body.appendChild(DivOption)
+
                 fetch(parts[checkbox.value])
                 .then(response => {
                     return response.json()
                 })
                 .then(data => {
                     if (checkbox.value == 'gpu'){
-                        var filteredData = data.filter( op => op.chipset.includes(optionSelected) && op.price !== null)
+                        var filteredData = data.filter( op => op.chipset.includes(optionSelected) && op.price !== null && op.price <= Budget)
                         return filteredData
                     }
                     else if (checkbox.value == 'storage') {
                         var storageCapacity = document.querySelector('.StorageCapacityInput').value
-                        var filteredData = data.filter(storage => storage.type == optionSelected && storage.capacity <= storageCapacity && storage.price !== null)
+                        if (storageCapacity == null || storageCapacity === ''){
+                            storageCapacity = 100000
+                        }
+                        var filteredData = data.filter(storage => storage.type == optionSelected && storage.capacity <= storageCapacity && storage.price !== null && storage.price <= Budget)
                         return filteredData
                     }
                     else if (checkbox.value == 'powerSupply'){
                         var option2 = document.querySelector('.selector.efficiency')
                         var optionSelected2 = option2.options[option2.selectedIndex].value
-                        var filteredData = data.filter(power => power.wattage <= optionSelected && power.wattage >= optionSelected - 50 && power.efficiency == optionSelected2 && power.price !== null)
+                        var filteredData = data.filter(power => power.wattage <= optionSelected && power.wattage >= optionSelected - 50 && power.efficiency == optionSelected2 && power.price !== null && power.price <= Budget)
                         return filteredData
                     }
                     else{
-                        var filteredData = data.filter( op => op.name.includes(optionSelected) && op.price !== null)
+                        var filteredData = data.filter( op => op.name.includes(optionSelected) && op.price !== null && op.price <= Budget)
                         return filteredData
                     }
                 })
@@ -129,7 +147,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 .catch(error => {
                     console.log('Error: ', error)
                 })
-                //Añadir clase para que la tabla sea desplegable
             }  
 
 
